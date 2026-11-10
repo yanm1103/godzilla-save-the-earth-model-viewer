@@ -114,6 +114,18 @@ header h1 b {
   #museum span {
     display: none;
   }
+
+  header #museum {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  #museum img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /* just above the phone layout the full name and the three labeled buttons only fit a bit closer together */
@@ -237,9 +249,18 @@ header h1 b {
   display: block;
 }
 
+/* the monster icons are round, so the button is too: a pill with the round icon at its left, a plain circle when only the icon fits */
+header #museum {
+  overflow: hidden;
+  padding: 1px 14px 1px 1px;
+  border-radius: 999px;
+}
+
 #museum img {
   display: block;
-  border-radius: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
 }
 
 .chip {
