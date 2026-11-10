@@ -109,6 +109,13 @@ header h1 b {
   flex: 1;
 }
 
+/* the long label of the link to the sister site only fits on wide screens; below that it is just the icon (its tooltip says it) */
+@media (max-width: 1280px) {
+  #museum span {
+    display: none;
+  }
+}
+
 /* just above the phone layout the full name and the three labeled buttons only fit a bit closer together */
 @media (min-width: 761px) and (max-width: 860px) {
   header {
