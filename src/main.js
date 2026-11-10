@@ -19,6 +19,7 @@ const $ = (id) => document.getElementById(id);
 const canvas = $("scene");
 const selLight = $("light");
 const stats = $("info");
+const monsterName = $("monster-name");
 const modelStats = $("model-stats");
 const status = $("notice");
 const download = $("download");
@@ -611,6 +612,9 @@ async function setMonster(file) {
   const mine = ++request;
   const mon = monsterOf(file);
   const label = mon?.name ?? file;
+  const costumeLabel = mon && mon.costumes.length > 1 ? mon.labels?.[filesOf(mon).indexOf(file)] : null;
+  monsterName.textContent = label;
+  if (costumeLabel) monsterName.append(Object.assign(document.createElement("small"), { textContent: costumeLabel }));
   const url = `${BASE}models/${file}.glb`;
   status.textContent = "";
   remember("monster", file);

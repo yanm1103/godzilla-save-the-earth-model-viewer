@@ -747,6 +747,30 @@ kbd {
   display: none;
 }
 
+/* the picked monster's name (and costume), on the stage's top left corner */
+#monster-name {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  max-width: 55%;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--text);
+  text-shadow: 0 1px 3px #000c;
+  pointer-events: none;
+}
+
+#monster-name small {
+  display: block;
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+
+#monster-name:empty {
+  display: none;
+}
+
 #info b,
 #model-stats b {
   color: #e0e1e4;
@@ -1047,6 +1071,7 @@ body.showcase #stage {
 body.showcase #app > :not(#stage),
 body.showcase #player,
 body.showcase #show-player,
+body.showcase #monster-name,
 body.showcase #info {
   visibility: hidden;
 }
