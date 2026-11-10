@@ -30,7 +30,7 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // BASE_PIXEL_RATIO (bigger while saving a big picture)
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 renderer.autoClear = false;
-const backgroundColor = new THREE.Color(0x16131b);
+const backgroundColor = new THREE.Color(0x17181b);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(FOVY, 1, 1, 10000);
@@ -183,8 +183,8 @@ MONSTERS.forEach((m, i) => {
     const img = document.createElement("img");
     img.src = `${BASE}logos/${m.prefix.toLowerCase()}.png`;
     img.alt = m.name;
-    img.width = 256;
-    img.height = 128;
+    img.width = 64;
+    img.height = 52;
     tile.append(img);
   }
   monsterList.append(tile);
@@ -264,7 +264,7 @@ function monsterOf(file) {
 }
 
 // ---- background: a plain color of the visitor's choice
-const DEFAULT_COLOR = "#2b2f3a";
+const DEFAULT_COLOR = "#17181b"; // the drawers' color (--panel in style.css)
 const colorInput = $("bg-color");
 
 // ---- floor grid on / off

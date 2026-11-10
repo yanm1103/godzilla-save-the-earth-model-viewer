@@ -491,6 +491,15 @@ input[type="color"] {
   background: #222;
 }
 
+/* monster portraits: 64 x 52 pixel art from the game's select screen */
+.tile.monster img {
+  aspect-ratio: 5 / 4;
+  object-fit: contain;
+  image-rendering: pixelated;
+  background: transparent;
+  padding: 6px;
+}
+
 .tile .swatch {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
 }

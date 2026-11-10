@@ -124,6 +124,15 @@ class Glb:
             f.write(out)
 
 
+def png_rgba(w, h, rgba):
+    raw = b''.join(b'\x00' + rgba[y * w * 4:(y + 1) * w * 4] for y in range(h))
+
+    def ck(t, c):
+        return struct.pack('>I', len(c)) + t + c + struct.pack('>I', zlib.crc32(t + c) & 0xffffffff)
+    return (b'\x89PNG\r\n\x1a\n' + ck(b'IHDR', struct.pack('>IIBBBBB', w, h, 8, 6, 0, 0, 0)) +
+            ck(b'IDAT', zlib.compress(raw, 9)) + ck(b'IEND', b''))
+
+
 def png_indexed(w, h, palette, idx):
     """8-bit indexed PNG: palette = 256 x (r, g, b, a); idx = w*h palette indices (the game's texture is indexed too)."""
     raw = b''.join(b'\x00' + idx[y * w:(y + 1) * w] for y in range(h))
@@ -469,6 +478,33 @@ def listing_of(mon, anim_dir, dirs):
 
 FPS = 30
 
+# Portraits of the monster select screen: ShellCommon.bdp has "<name>face" textures, 64x56 RGBA32 in raster order (the picture
+# is the top 64x52). Ebirah is not playable and has none.
+FACES = {'GODZILLA2K': 'godzilla2kface', 'GODZILLA90S': 'godzilla90sface', 'MECHAGODZILLA2': 'mechagodzilla2face',
+         'MECHAGODZILLA3': 'mechagodzilla3face', 'SPACEGODZILLA': 'spacegodzillaface', 'ANGUIRUS': 'anguirusface',
+         'BARAGON': 'baragonface', 'BIOLLANTE': 'biollanteface', 'DESTOROYAH': 'destoroyahface', 'GHIDORAH': 'ghidorahface',
+         'MGHIDORAH': 'mghidorahface', 'GIGAN': 'giganface', 'JETJAGUAR': 'jetjaguarface', 'MEGAGUIRUS': 'megaguirusface',
+         'MEGALON': 'megalonface', 'MOGUERA': 'moguera2face', 'MOTHRA': 'mothraface', 'MOTHRALARVAE': 'mothra_larvaeface',
+         'ORGA': 'orgaface', 'RODAN': 'rodanface'}
+
+
+def export_logos(vol, out_dir, only=None):
+    """public/logos/<prefix lowercase>.png, 64x52 with the game's alpha (0..0x80 -> 0..255)."""
+    b = S.Bundle(vol.get('ShellCommon.bdp'))
+    names = K.entry_names(b)
+    entries = {names[e['id']][1].lower(): e for e in b.entries if e['id'] in names}
+    for prefix, face in FACES.items():
+        if only and prefix not in only:
+            continue
+        t = b.tail_bytes(entries[face])
+        px = bytearray()
+        for k in range(0, 64 * 52 * 4, 4):
+            px += bytes((t[k], t[k + 1], t[k + 2], min(255, t[k + 3] * 2)))
+        path = os.path.join(out_dir, '..', 'logos', prefix.lower() + '.png')
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'wb') as f:
+            f.write(png_rgba(64, 52, bytes(px)))
+
 
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -478,6 +514,7 @@ def main(argv):
     args = ap.parse_args(argv)
     vol = S.Vol(S.Iso(args.iso))
     only = {s.upper() for s in args.only.split(',')} if args.only else None
+    export_logos(vol, args.out, only)
     catalog = []
     for prefix, name, costumes in MONSTERS:
         if only and prefix not in only:
