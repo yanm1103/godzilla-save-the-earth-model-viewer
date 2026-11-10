@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vscode/
+.angularjs-lsp/
+
+# game files never go in this repo: the ISO, the extracted volume and the bundles
+*.iso
+*.VOL
+*.vol
+*.cmp
+*.bdp
+iso/
+extracted/
+__pycache__/
