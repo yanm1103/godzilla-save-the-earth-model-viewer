@@ -237,6 +237,11 @@ header h1 b {
   display: block;
 }
 
+#museum img {
+  display: block;
+  border-radius: 3px;
+}
+
 .chip {
   padding: 6px 10px;
   border: 1px solid var(--border2);
