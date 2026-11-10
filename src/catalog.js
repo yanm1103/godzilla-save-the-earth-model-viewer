@@ -14,7 +14,6 @@ export const MONSTERS = [
   { prefix: "BARAGON", name: "Baragon", costumes: [0] },
   { prefix: "BIOLLANTE", name: "Biollante", costumes: [0] },
   { prefix: "DESTOROYAH", name: "Destoroyah", costumes: [0, 1], labels: ["default", "carnival"] },
-  { prefix: "EBIRAH", name: "Ebirah", costumes: [0, 1], zoom: 1.5, labels: ["default", "rail stage"], logo: false },
   { prefix: "GHIDORAH", name: "King Ghidorah", costumes: [0] },
   { prefix: "MGHIDORAH", name: "Mecha-King Ghidorah", costumes: [0] },
   { prefix: "GIGAN", name: "Gigan", costumes: [0] },
@@ -26,4 +25,5 @@ export const MONSTERS = [
   { prefix: "MOTHRALARVAE", name: "Mothra (larva)", costumes: [0], zoom: 1.3 },
   { prefix: "ORGA", name: "Orga", costumes: [0] },
   { prefix: "RODAN", name: "Rodan", costumes: [0], zoom: 1.3 },
+  { prefix: "EBIRAH", name: "Ebirah", costumes: [0, 1], zoom: 1.5, labels: ["default", "rail stage"], logo: false },
 ];
